@@ -42,7 +42,7 @@ const Catalog = (props) => {
     }
 
     const getAllComics = () => {
-        let url = `${process.env.REACT_APP_API}comics/`
+        let url = `${process.env.REACT_APP_API}/comics/`
         console.log('url', url)
         axios.get(url)
         .then(response => {
@@ -60,7 +60,7 @@ const Catalog = (props) => {
             getAllComics(); 
             return;
         }
-        axios.get(`${process.env.REACT_APP_API}comics/publishers/${e.value}/`)
+        axios.get(`${process.env.REACT_APP_API}/comics/publishers/${e.value}/`)
         .then(response => {
             if(response && response.data) setComics(response.data)
         })
@@ -70,7 +70,7 @@ const Catalog = (props) => {
     }
 
     const loadOptions = () => {
-        axios.get(`${process.env.REACT_APP_API}publishers/`)
+        axios.get(`${process.env.REACT_APP_API}/publishers/`)
         .then(response => {
             console.log('response', response)
             if(response && response.data) {
