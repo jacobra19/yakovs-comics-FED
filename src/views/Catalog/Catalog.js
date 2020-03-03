@@ -55,7 +55,7 @@ const Catalog = (props) => {
         })
     }
 
-    const handleSelectChange = (e) => { 
+    const handleSelectChange = (e) => {  
         if(!e) {
             getAllComics(); 
             return;
