@@ -6,7 +6,7 @@ const getPublishers = ( params ) => {
 
         axios.get(`${process.env.REACT_APP_API}/publishers/`)
         .then(response => {
-            console.log('response', response)
+            // console.log('response', response)
             if(response && response.data) {
                 let options = response.data.map(opt=>{
                     return { label: opt, value: opt }

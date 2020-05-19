@@ -50,21 +50,11 @@ const TopBar = () => {
 
         <AppBar id={'TopBar_root'} style={ styles('root')} position="fixed">
             <div style={{display:'flex',alignItems:'center'}}>
-                <   ThoughtBubble style={styles('navIcon')}/>
+                <ThoughtBubble style={styles('navIcon')}/>
 
                 <Typography style={ styles('titleText') }>{title}</Typography>
             </div>
-            {/* <Toolbar style={{height:'100%'}}> */}
-            {/* <div style={{display:'flex'}}>
-                <Link to="/">
-                    <button>home</button>
-                </Link>
-                <Link to="/about">
-                    <button>About</button>
-                </Link>    
-
-            </div> */}
-            {/* </Toolbar> */}
+            <div>toggle</div>
         </AppBar>
     )
 }

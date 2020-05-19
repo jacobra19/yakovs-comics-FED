@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-import ComicCard from '../../components/ComicCard/ComicCard';
+import ComicCard from '../../components/General/ComicCard/ComicCard';
 import getComics from '../../actions/getComics';
 import getPublishers from '../../actions/getPublishers';
 
@@ -16,7 +16,7 @@ const Catalog = (props) => {
 
 
         return () => {
-            console.log('clean (umnount)')
+            // console.log('clean (umnount)')
         };
     },[]);
 
