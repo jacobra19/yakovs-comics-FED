@@ -1,10 +1,10 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
 import ComicCard from '../../components/ComicCard/ComicCard';
+import getComics from '../../actions/getComics';
+import getPublishers from '../../actions/getPublishers';
 
-require('dotenv').config()
 
 const Catalog = (props) => {
     const [comics, setComics] = useState([]);
@@ -42,16 +42,12 @@ const Catalog = (props) => {
     }
 
     const getAllComics = () => {
-        let url = `${process.env.REACT_APP_API}/comics/`
-        console.log('url', url)
-        axios.get(url)
-        .then(response => {
-            console.log('response', response)
-            if(response && response.data) setComics(response.data)
-            else setComics([])
+        getComics()
+        .then(res=>{
+            setComics(res)
         })
-        .catch((e) => {
-            console.log(e)
+        .catch(err=>{
+            console.log('err', err)
         })
     }
 
@@ -60,28 +56,23 @@ const Catalog = (props) => {
             getAllComics(); 
             return;
         }
-        axios.get(`${process.env.REACT_APP_API}/comics/publishers/${e.value}/`)
-        .then(response => {
-            if(response && response.data) setComics(response.data)
+
+        getComics({publishers:e.value})
+        .then(res=>{
+            setComics(res)
         })
-        .catch((e) => {
-            console.log(e)
+        .catch(err=>{
+            console.log('err', err)
         })
     }
 
     const loadOptions = () => {
-        axios.get(`${process.env.REACT_APP_API}/publishers/`)
-        .then(response => {
-            console.log('response', response)
-            if(response && response.data) {
-                let options = response.data.map(opt=>{
-                    return { label: opt, value: opt }
-                })
-                setOptions(options)
-            }
+        getPublishers()
+        .then(res=>{
+            setOptions(res)
         })
-        .catch((e) => {
-            console.log(e)
+        .catch(err=>{
+            console.log('err', err)
         })
     }
 
