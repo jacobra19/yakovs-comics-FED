@@ -4,7 +4,9 @@ require('dotenv').config()
 const getPublishers = ( params ) => {
     return new Promise((resolve, reject) => {
 
-        axios.get(`${process.env.REACT_APP_API}/publishers/`)
+        let url = `${process.env.REACT_APP_API}/publishers/`
+
+        axios.get(url)
         .then(response => {
             // console.log('response', response)
             if(response && response.data) {

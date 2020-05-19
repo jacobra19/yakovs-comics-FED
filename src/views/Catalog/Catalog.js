@@ -56,8 +56,7 @@ const Catalog = (props) => {
             getAllComics(); 
             return;
         }
-
-        getComics({publishers:e.value})
+        getComics({publisher:e.value})
         .then(res=>{
             setComics(res)
         })

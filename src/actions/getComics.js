@@ -3,20 +3,13 @@ require('dotenv').config()
 
 const getComics = ( params={} ) => {
     return new Promise((resolve, reject) => {
-        // console.log('process.env', process.env)
-        // console.log('process.env.REACT_APP_API', process.env.REACT_APP_API)
         let url = `${process.env.REACT_APP_API}/comics/`
 
-        if(params.hasOwnProperty['publishers']){
-            url = url+'publishers'+params.publishers+'/'
-        }
-
-
-        // console.log('url', url)
+        if(params.hasOwnProperty('publisher')) url = `${url}publishers/${params.publisher}/`
 
         axios.get(url)
         .then(response => {
-            // console.log('response', response)
+            // console.log('getComics response', response)
             if(response && response.data) resolve(response.data)
             else resolve([])
         })
