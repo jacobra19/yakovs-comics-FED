@@ -10,6 +10,40 @@ const Catalog = (props) => {
     const [comics, setComics] = useState([]);
     const [options, setOptions] = useState([])
 
+    const example = {
+        "_id": "5e558208e12490d445388e67",
+        "publish": {
+          "title": "Marvel",
+          "date": "Jun 2002"
+        },
+        "media": {
+          "coverSrc": "https://d1466nnw0ex81e.cloudfront.net/n_iv/600/732221.jpg"
+        },
+        "series": {
+          "title": "Captain America",
+          "issue": "1"
+        },
+        "description": "In the aftermath of 9/11, Cap must deal with the way America, and the world, have changed. From the ruins of the World Trade Center to the horrors of a small town shaken by terrorism, this is one double-sized first issue you'll never forget, and neither will Marvel's star-spangled champion!",
+        "saga": {
+          "title": "2002 4th Series",
+          "currentIssue": "1",
+          "totalIssues": "1"
+        },
+        "variant": "",
+        "creators": {
+          "coverArtBy": [
+            "JOHN CASSADAY"
+          ],
+          "writtenBy": [
+            "JOHN NEY RIEBER"
+          ],
+          "pencilsBy": [
+            "JOHN CASSADAY"
+          ],
+          "inksBy": []
+        }
+      }
+
     useEffect(() => {
         getAllComics()
         loadOptions()
@@ -19,6 +53,13 @@ const Catalog = (props) => {
             // console.log('clean (umnount)')
         };
     },[]);
+
+    useEffect(() => {
+        console.log('comics', comics)
+        return () => {
+            // cleanup
+        }
+    },[comics])
 
     const styles = (s) => {
         let styles = {

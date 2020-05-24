@@ -1,4 +1,6 @@
 import React from 'react';
+
+import AddComicPopup from '../../General/AddComicPopup/AddComicPopup'
 // import { Link } from "react-router-dom";
 import { AppBar, Typography } from '@material-ui/core';
 import { ThoughtBubble  } from 'mdi-material-ui'
@@ -54,7 +56,7 @@ const TopBar = () => {
 
                 <Typography style={ styles('titleText') }>{title}</Typography>
             </div>
-            <div>toggle</div>
+            <AddComicPopup/>
         </AppBar>
     )
 }
