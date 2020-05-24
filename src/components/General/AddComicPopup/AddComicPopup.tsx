@@ -8,7 +8,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 
-const AddComicPopup = () => {
+import ComicBookEntity from '../../../classes/comicBook'
+
+const AddComicPopup: React.FC = () => {
     const [open, setOpen] = React.useState(false);
     const [formState, setFormState] = React.useState({
         publish: {
@@ -37,7 +39,7 @@ const AddComicPopup = () => {
         }
     })
 
-    const styles = (s) => {
+    const styles = (s:string) => {
         let styles = {
             root: {
             },
@@ -58,6 +60,8 @@ const AddComicPopup = () => {
     }
 
     const handleClickOpen = () => {
+        let ppp = new ComicBookEntity('ttttt')
+        console.log('ppp :>> ', ppp);
         setOpen(true);
     };
     
@@ -65,7 +69,8 @@ const AddComicPopup = () => {
         setOpen(false);
     };
 
-    const handleFormChange = (e) => {
+    const handleFormChange = (e:any) => {
+        
         console.log('e.target.id', e.target.id)
         console.log('e.target.value', e.target.value)
         let path = e.target.id.split('.')
