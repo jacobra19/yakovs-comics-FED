@@ -1,11 +1,34 @@
 export default class ComicBookEntity {
 
-    public puki: string;
-    constructor(
-        muki: string
-    ) {
-        this.puki = muki
+    public publishTitle: string;
+    public publishDate: string;
+    // public puki: string;
+    constructor( data:any ) {
+        this.publishTitle = data?.publish?.title||'';
+        this.publishDate = data?.publish?.date||'';
+
+        // media: {
+        //     coverSrc: ''
+        // },
+        // series: {
+        //     title: '',
+        //     issue: ''
+        // },
+        // description: '',
+        // saga: {
+        //     title: '',
+        //     currentIssue: '',
+        //     totalIssues: '',
+        // },
+        // variant: '',
+        // creators: {
+        //     coverArtBy: [],
+        //     writtenBy: [],
+        //     pencilsBy: [],
+        //     inksBy: []
+        // }
     }
+
 
     
 }

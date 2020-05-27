@@ -40,7 +40,8 @@ const AddComicPopup: React.FC = () => {
     })
 
     const styles = (s:string) => {
-        let styles = {
+
+        let styles:{[key:string]:{[key:string]:string|number}} = {
             root: {
             },
             btn:{
@@ -56,7 +57,7 @@ const AddComicPopup: React.FC = () => {
 
         }
 
-        return(styles[s]);
+        return styles[s] 
     }
 
     const handleClickOpen = () => {
