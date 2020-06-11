@@ -6,9 +6,14 @@ import { RecoilRoot } from 'recoil';
 import TopBar from './components/Layout/TopBar/TopBar'
 import MainSection from './components/Layout/MainSection/MainSection'
 
+
+
 function App() {
-    const styles = (s) => {
-        let styles = {
+    interface Styles {
+        [key:string]: object
+    }
+    const styles = (s:string): object => {
+        let styles:Styles = {
             root: {
                 width: "100vw",
                 height: "100vh",
@@ -19,12 +24,12 @@ function App() {
             },
         }
 
-        return(styles[s]);
+        return styles[s];
     }
 
     
 
-
+    
     return (
         <RecoilRoot>
             <Router>

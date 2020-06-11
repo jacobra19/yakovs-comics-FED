@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-import ComicCard from '../../components/General/ComicCard/ComicCard';
+import ComicCard from '../../components/General/ComicCard/ComicCard.tsx';
 import getComics from '../../actions/getComics.ts';
 import getPublishers from '../../actions/getPublishers.ts';
 
