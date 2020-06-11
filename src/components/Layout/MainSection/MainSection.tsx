@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route,Switch } from "react-router-dom";
 
-import Catalog from '../../../views/Catalog/Catalog'
-import Analytics from '../../../views/Analytics/Analytics'
-import AdminPanel from '../../../views/AdminPanel/AdminPanel'
+import Catalog from '../../../views/Catalog/Catalog.tsx'
+import Analytics from '../../../views/Analytics/Analytics.tsx'
+import AdminPanel from '../../../views/AdminPanel/AdminPanel.tsx'
 // import About from './views/About/About'
 import NavBar from '../NavBar/NavBar'
 import NoResults from '../../General/NoResults/NoResults'
