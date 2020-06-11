@@ -1,8 +1,8 @@
-import React from 'react';
-
+import React,{useState} from 'react';
+import getComicsCollection from "../../../actions/getComicsCollection";
 import AddComicPopup from '../../General/AddComicPopup/AddComicPopup'
 // import { Link } from "react-router-dom";
-import { AppBar, Typography } from '@material-ui/core';
+import { AppBar, Typography, TextField } from '@material-ui/core';
 import { ThoughtBubble  } from 'mdi-material-ui'
 
 // import palette from '../../modules/colors/palette'
@@ -14,6 +14,7 @@ import { ThoughtBubble  } from 'mdi-material-ui'
 //     'd': '#c7f0db',
 // }
 const TopBar = () => {
+    const [textFieldText, setTextFieldText] = useState<string>('');
 
     type Styles = {
         [key:string]:object
@@ -51,6 +52,18 @@ const TopBar = () => {
         return(styles[s]);
     }
 
+    const handleChangeTextField = (e:any) => {
+        setTextFieldText(e.target.value)
+
+    }
+
+    const handleKeyDownTextField = (e:any) => {
+        if(e.key==='Enter') console.log('enter :>> ', textFieldText);
+
+        getComicsCollection({collectionId:textFieldText})
+        
+    }
+
     let title = 'Comics';
     return (
 
@@ -60,6 +73,7 @@ const TopBar = () => {
 
                 <Typography style={ styles('titleText') }>{title}</Typography>
             </div>
+            <TextField onChange={handleChangeTextField} onKeyDown={handleKeyDownTextField}></TextField>
             <AddComicPopup/>
         </AppBar>
     )

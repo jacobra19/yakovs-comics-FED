@@ -9,13 +9,15 @@ import { ComicBook } from "../../types";
 
 
 const Catalog = () => {
-    // type Comics = ComicBook[];
+    // type TComics = ComicBook[];
 
     // interface IComics {
     //     [index: number]: ComicBook;
     // }
+
+    let initialComics:ComicBook[] = []
     
-    const [comics, setComics] = useState([]);
+    const [comics, setComics] = useState<ComicBook[]>([]);
     const [options, setOptions] = useState([])
 
     useEffect(() => {
@@ -63,7 +65,9 @@ const Catalog = () => {
     const getAllComics = () => {
         getComics()
         .then((res)=>{
-            setComics([])
+            console.log('res :>> ', res);
+            // let comics: ComicBook[] = res
+            // setComics(comics)
         })
         .catch(err=>{
             console.log('err', err)
@@ -77,7 +81,7 @@ const Catalog = () => {
         }
         getComics({publisher:e.target.value})
         .then(res=>{
-            setComics([])
+            // setComics(res)
         })
         .catch(err=>{
             console.log('err', err)

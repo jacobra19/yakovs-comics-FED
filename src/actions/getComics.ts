@@ -17,9 +17,9 @@ const getComics = ( params?:getComicsParams ) => {
         axios.get(url)
         .then((response) => {
             console.log('getComics response', response)
-            let comics: ComicBook[] = [];
+            let comics:ComicBook[] = []
             if(response && response.data) {
-                // comics = [...response.data]
+                comics = [...response.data]
                 resolve(comics)
             }
             else resolve(comics)
