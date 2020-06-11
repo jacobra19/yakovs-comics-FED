@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Analytics = (props) => {
+const Analytics = () => {
 
-    const styles = (s) => {
-        let styles = {
+    type Styles = {
+        [key:string]:object
+    }
+    
+    const styles = (s:string) => {
+        let styles:Styles = {
             root: {
                 height: "calc(100% - 60px)",
                 marginTop:60,

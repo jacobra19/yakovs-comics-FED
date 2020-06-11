@@ -6,11 +6,14 @@ import { ChartBarStacked, Bookshelf, SettingsOutline } from 'mdi-material-ui'
 import { Typography } from '@material-ui/core';
 
 
-const NavBar = (props) => {
-    // let {comicbook} = props;
+const NavBar = () => {
     
-    const styles = (s) => {
-        let styles = {
+    type Styles = {
+        [key:string]:object
+    }
+    
+    const styles = (s:string) => {
+        let styles:Styles = {
             root:{
                 height:'calc( 100% - 1px )',
                 width:60,
@@ -34,7 +37,7 @@ const NavBar = (props) => {
         return(styles[s]);
     }
 
-    const Tooltip = (title) => {
+    const Tooltip = (title:string) => {
         return <Typography style={{fontSize:13}}>{title}</Typography>
     }
 

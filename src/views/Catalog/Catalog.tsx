@@ -1,48 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
-import ComicCard from '../../components/General/ComicCard/ComicCard.tsx';
-import getComics from '../../actions/getComics.ts';
-import getPublishers from '../../actions/getPublishers.ts';
+import ComicCard from '../../components/General/ComicCard/ComicCard';
+import getComics from '../../actions/getComics';
+import getPublishers from '../../actions/getPublishers';
+
+import { ComicBook } from "../../types";
 
 
-const Catalog = (props) => {
+const Catalog = () => {
+    // type Comics = ComicBook[];
+
+    // interface IComics {
+    //     [index: number]: ComicBook;
+    // }
+    
     const [comics, setComics] = useState([]);
     const [options, setOptions] = useState([])
-
-    // const example = {
-    //     "_id": "5e558208e12490d445388e67",
-    //     "publish": {
-    //       "title": "Marvel",
-    //       "date": "Jun 2002"
-    //     },
-    //     "media": {
-    //       "coverSrc": "https://d1466nnw0ex81e.cloudfront.net/n_iv/600/732221.jpg"
-    //     },
-    //     "series": {
-    //       "title": "Captain America",
-    //       "issue": "1"
-    //     },
-    //     "description": "In the aftermath of 9/11, Cap must deal with the way America, and the world, have changed. From the ruins of the World Trade Center to the horrors of a small town shaken by terrorism, this is one double-sized first issue you'll never forget, and neither will Marvel's star-spangled champion!",
-    //     "saga": {
-    //       "title": "2002 4th Series",
-    //       "currentIssue": "1",
-    //       "totalIssues": "1"
-    //     },
-    //     "variant": "",
-    //     "creators": {
-    //       "coverArtBy": [
-    //         "JOHN CASSADAY"
-    //       ],
-    //       "writtenBy": [
-    //         "JOHN NEY RIEBER"
-    //       ],
-    //       "pencilsBy": [
-    //         "JOHN CASSADAY"
-    //       ],
-    //       "inksBy": []
-    //     }
-    //   }
 
     useEffect(() => {
         getAllComics()
@@ -61,8 +35,12 @@ const Catalog = (props) => {
         }
     },[comics])
 
-    const styles = (s) => {
-        let styles = {
+    type Styles = {
+        [key:string]:object
+    }
+    
+    const styles = (s:string) => {
+        let styles:Styles = {
             root: {
                 height: '100%',
                 width: '100%',
@@ -84,22 +62,22 @@ const Catalog = (props) => {
 
     const getAllComics = () => {
         getComics()
-        .then(res=>{
-            setComics(res)
+        .then((res)=>{
+            setComics([])
         })
         .catch(err=>{
             console.log('err', err)
         })
     }
 
-    const handleSelectChange = (e) => {
+    const handleSelectChange = (e:any) => {
         if(!e) {
             getAllComics(); 
             return;
         }
-        getComics({publisher:e.value})
+        getComics({publisher:e.target.value})
         .then(res=>{
-            setComics(res)
+            setComics([])
         })
         .catch(err=>{
             console.log('err', err)
@@ -109,7 +87,7 @@ const Catalog = (props) => {
     const loadOptions = () => {
         getPublishers()
         .then(res=>{
-            setOptions(res)
+            setOptions([])
         })
         .catch(err=>{
             console.log('err', err)

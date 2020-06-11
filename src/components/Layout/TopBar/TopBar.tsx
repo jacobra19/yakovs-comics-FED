@@ -15,8 +15,12 @@ import { ThoughtBubble  } from 'mdi-material-ui'
 // }
 const TopBar = () => {
 
-    const styles = (s) => {
-        let styles = {
+    type Styles = {
+        [key:string]:object
+    }
+    
+    const styles = (s:string) => {
+        let styles:Styles = {
             root: {
                 height:60,
                 width: '100%',

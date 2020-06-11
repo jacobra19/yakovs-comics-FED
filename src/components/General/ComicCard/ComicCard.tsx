@@ -4,7 +4,15 @@ import { Brush, Typewriter,LeadPencil,BookOpenVariant } from 'mdi-material-ui'
 import Tippy from '@tippy.js/react';
 import 'tippy.js/dist/tippy.css';
 
-const creatorsSection = [
+import { ComicBook } from "../../../types";
+
+type Creator = {
+    label: string,
+    Cmp: React.FC,
+    value: string,
+}
+
+const creatorsSection: Creator[] = [
     {
         label: 'Cover Art By',
         Cmp: BookOpenVariant,
@@ -27,14 +35,18 @@ const creatorsSection = [
     }
 ]
 
+type ComicCardProps = {
+    comicbook: ComicBook
+}
 
+const ComicCard = ({comicbook}:ComicCardProps) => {
 
+    type Styles = {
+        [key:string]: object
+    }
 
-const ComicCard = (props) => {
-    let {comicbook} = props;
-    
-    const styles = (s) => {
-        let styles = {
+    const styles = (s:string): object => {
+        let styles:Styles = {
             root: {
                 justifySelf: "center",
                 alignSelf: "center",
@@ -58,15 +70,15 @@ const ComicCard = (props) => {
         return(styles[s]);
     }
 
-    const renderArtist = ({label,Cmp,value}) => {
+    const renderArtist = ({label,Cmp,value}:Creator) => {
         return(
             <Tippy key={value} content={Tooltip(`${label} ${comicbook.creators[value]}`)} placement={'bottom'}>
-                <Cmp style={{}}/>
+                <Cmp />
             </Tippy>
         )
     }
 
-    const Tooltip = (title) => {
+    const Tooltip = (title:string) => {
         return <Typography style={{fontSize:13}}>{title}</Typography>
     }
 
