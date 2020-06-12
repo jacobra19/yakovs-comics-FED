@@ -1,5 +1,5 @@
 export type ComicBook = {
-    _id: string,
+    _id?: string,
     publish: {
         title: string,
         date: string

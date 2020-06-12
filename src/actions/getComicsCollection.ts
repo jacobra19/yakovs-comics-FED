@@ -1,6 +1,7 @@
 import axios from 'axios'
 require('dotenv').config()
 
+import { ComicBook } from "../types";
 
 type getComicsCollectionParams = {
     collectionId: string
@@ -24,21 +25,46 @@ const getComicsCollection = ( params?:getComicsCollectionParams ) => {
             let s = '<div id="myDiv"></div>';
             let htmlObject = document.createElement('div');
             htmlObject.innerHTML = data;
-            // console.log('htmlObject', htmlObject)
 
             let results = htmlObject.getElementsByClassName('issue')
             console.log('results', results)
 
             if(!results) return
             let list = Array.prototype.slice.call( results )
-            // console.log('list', list)
-            // console.log('typeof list', typeof list)
-            let fetchedBooks = list.map((item:any)=>{
-                // console.log('item', item)
-                let title = item.querySelector('.title').innerText
-                console.log('title', title)
-                return title
+
+            
+            let fetchedBooks = list.map((item:any )=>{
+                console.log('typeof item', typeof item)
+                console.log('item', item)
+
+                return {
+                    publish: {
+                        title: item.querySelector('.othercolright').lastElementChild.innerText,
+                        date: item.querySelector('.othercolright').firstElementChild.innerText
+                    },
+                    media:{
+                        coverSrc:item.querySelector('.img a') ? item.querySelector('.img a').href : ''
+                    },
+                    series:{
+                        title: item.querySelector('.title a').innerText,
+                        issue: item.querySelector('.title strong').innerText,
+                    },
+                    description:item.querySelector('.tabcontents').lastElementChild.innerText,
+                    saga:{
+                        title: '',
+                        currentIssue: '',
+                        totalIssues: '',
+                    },
+                    variant: '',
+                    creators:{
+                        coverArtBy: [],
+                        writtenBy: [],
+                        pencilsBy: [],
+                        inksBy: [],
+                    }
+                }
             })
+            console.log('fetchedBooks', fetchedBooks)
         })
         .catch(reject)
     })

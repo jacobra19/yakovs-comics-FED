@@ -52,17 +52,7 @@ const TopBar = () => {
         return(styles[s]);
     }
 
-    const handleChangeTextField = (e:any) => {
-        setTextFieldText(e.target.value)
 
-    }
-
-    const handleKeyDownTextField = (e:any) => {
-        if(e.key==='Enter') console.log('enter :>> ', textFieldText);
-
-        getComicsCollection({collectionId:textFieldText})
-        
-    }
 
     let title = 'Comics';
     return (
@@ -73,7 +63,6 @@ const TopBar = () => {
 
                 <Typography style={ styles('titleText') }>{title}</Typography>
             </div>
-            <TextField onChange={handleChangeTextField} onKeyDown={handleKeyDownTextField}></TextField>
             <AddComicPopup/>
         </AppBar>
     )
