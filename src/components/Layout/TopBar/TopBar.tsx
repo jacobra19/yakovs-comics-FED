@@ -1,20 +1,10 @@
-import React,{useState} from 'react';
-import getComicsCollection from "../../../actions/getComicsCollection";
+import React from 'react';
 import AddComicPopup from '../../General/AddComicPopup/AddComicPopup'
-// import { Link } from "react-router-dom";
-import { AppBar, Typography, TextField } from '@material-ui/core';
+import { AppBar, Typography } from '@material-ui/core';
 import { ThoughtBubble  } from 'mdi-material-ui'
 
-// import palette from '../../modules/colors/palette'
 
-// const colorPalette = { //https://colorhunt.co/palette/165518
-//     'a': '#464159',
-//     'b': '#6c7b95',
-//     'c': '#8bbabb',
-//     'd': '#c7f0db',
-// }
 const TopBar = () => {
-    const [textFieldText, setTextFieldText] = useState<string>('');
 
     type Styles = {
         [key:string]:object

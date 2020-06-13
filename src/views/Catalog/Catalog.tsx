@@ -9,12 +9,6 @@ import { ComicBook } from "../../types";
 
 
 const Catalog = () => {
-    // type TComics = ComicBook[];
-
-    // interface IComics {
-    //     [index: number]: ComicBook;
-    // }
-
     let initialComics:ComicBook[] = []
     
     const [comics, setComics] = useState<ComicBook[]>([]);

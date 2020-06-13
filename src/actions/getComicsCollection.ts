@@ -64,7 +64,11 @@ const getComicsCollection = ( params?:getComicsCollectionParams ) => {
                     }
                 }
             })
+            return fetchedBooks
+        })
+        .then((fetchedBooks)=>{
             console.log('fetchedBooks', fetchedBooks)
+
         })
         .catch(reject)
     })
