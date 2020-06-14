@@ -22,8 +22,9 @@ const AdminPanel = () => {
     const styles = (s:string) => {
         let styles:Styles = {
             root: {
-                height: "calc(100% - 60px)",
-                marginTop:60,
+                height: "100%",
+                width: "100%",
+                overflow: "auto",
             },
         }
 
@@ -70,9 +71,33 @@ const AdminPanel = () => {
         return(
             <div>
                 <Typography>{text}</Typography>
+                { isEmptyData ? null : <IssuesTable issues={props.data.issues}/> }
                 <Button disabled={isEmptyData} variant="contained" color="primary">Add To Database</Button>
             </div>
 
+        )
+    }
+
+    interface IssuesTableProps {
+        issues: ComicBook[]
+    }
+
+    const IssuesTable: React.FC<IssuesTableProps> = (props) => {
+        
+        return (
+            <div>
+                {
+                    props.issues.map((item,idx)=>{
+                        return (
+                            <div style={{height: 120, display:'flex'}}>
+                                <input type='checkbox'></input>
+                                <img width={100} src={item.media.coverSrc}/>
+                                <Typography>{item.series.title} {item.series.issue}</Typography>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         )
     }
 
