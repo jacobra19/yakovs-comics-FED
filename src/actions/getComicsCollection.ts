@@ -1,6 +1,7 @@
 import axios from 'axios'
 require('dotenv').config()
 
+import addFromScrapeComics from "../actions/addFromScrapeComics";
 import { ComicBook } from "../types";
 
 type getComicsCollectionParams = {
@@ -64,10 +65,15 @@ const getComicsCollection = ( params?:getComicsCollectionParams ) => {
                     }
                 }
             })
-            return fetchedBooks
-        })
-        .then((fetchedBooks)=>{
             console.log('fetchedBooks', fetchedBooks)
+            resolve(fetchedBooks)
+            // return fetchedBooks
+        // })
+        // .then((fetchedBooks: ComicBook[] = [])=>{
+        //     console.log('fetchedBooks', fetchedBooks)
+        //     addFromScrapeComics( fetchedBooks)
+        //     .then(console.log)
+        //     .catch(console.log)
 
         })
         .catch(reject)
