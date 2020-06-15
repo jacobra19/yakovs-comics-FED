@@ -67,13 +67,17 @@ const AdminPanel = () => {
         data: Data
     }
 
+    const handleCheckIssues = (checkedIssues: ComicBook[]) => {
+        console.log('handleCheckIssues checkedIssues :>> ', checkedIssues);
+    }
+
     const TitleInfoBox:React.FC<TitleInfoBoxProps> = (props) => {
         let isEmptyData:boolean = _isEmpty(props.data.issues) && _isEmpty(props.data.title)
         let text:string = isEmptyData ? `` : `${props.data.title} has ${props.data.issues.length} issues`
         return(
             <div>
                 <Typography>{text}</Typography>
-                { isEmptyData ? null : <IssuesTable issues={props.data.issues} /> }
+                { isEmptyData ? null : <IssuesTable issues={props.data.issues} onCheckboxChange={handleCheckIssues}/> }
                 <Button disabled={isEmptyData} variant="contained" color="primary">Add To Database</Button>
             </div>
 
