@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import getComicsCollection from "../../actions/getComicsCollection";
 
-import { AppBar, Typography, TextField, Button } from '@material-ui/core';
+import { Typography, TextField, Button } from '@material-ui/core';
 import { isEmpty as _isEmpty } from 'lodash';
 
 import { ComicBook } from "../../types";
+
+import IssuesTable from "../../components/General/IssuesTable/IssuesTable";
 
 type Data = {
     issues: ComicBook[],
@@ -71,35 +73,15 @@ const AdminPanel = () => {
         return(
             <div>
                 <Typography>{text}</Typography>
-                { isEmptyData ? null : <IssuesTable issues={props.data.issues}/> }
+                { isEmptyData ? null : <IssuesTable issues={props.data.issues} /> }
                 <Button disabled={isEmptyData} variant="contained" color="primary">Add To Database</Button>
             </div>
 
         )
     }
 
-    interface IssuesTableProps {
-        issues: ComicBook[]
-    }
 
-    const IssuesTable: React.FC<IssuesTableProps> = (props) => {
-        
-        return (
-            <div>
-                {
-                    props.issues.map((item,idx)=>{
-                        return (
-                            <div style={{height: 120, display:'flex'}}>
-                                <input type='checkbox'></input>
-                                <img width={100} src={item.media.coverSrc}/>
-                                <Typography>{item.series.title} {item.series.issue}</Typography>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
+
 
     return (
         <div style={styles('root')}>
