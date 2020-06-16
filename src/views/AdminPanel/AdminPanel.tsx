@@ -4,7 +4,7 @@ import getComicsCollection from "../../actions/getComicsCollection";
 import { Typography, TextField, Button } from '@material-ui/core';
 import { isEmpty as _isEmpty } from 'lodash';
 
-import { ComicBook } from "../../types";
+import { ComicBook, Styles } from "../../types";
 
 import IssuesTable from "../../components/General/IssuesTable/IssuesTable";
 
@@ -17,10 +17,6 @@ const AdminPanel = () => {
     const [textFieldText, setTextFieldText] = useState<string>('');
     const [titleData, setTitleData] = useState<Data>({issues:[],title:''});
     const [selectedIssues, setSelectedIssues] = useState<ComicBook[]>([])
-
-    type Styles = {
-        [key:string]:object
-    }
     
     const styles = (s:string) => {
         let styles:Styles = {
@@ -35,43 +31,69 @@ const AdminPanel = () => {
         return(styles[s]);
     }
 
+    const addCheckedToIssue = (book:ComicBook) => {
+        return {
+            ...book,
+            isChecked: false
+        }
+    }
+    
+    const mapIssuesAddIsChecked = (books: ComicBook[] ) => {
+        return books.map(addCheckedToIssue)
+    }
+
+    const filterIssuesChecked = (books:ComicBook[]) => {
+        return books.filter(item=>item.isChecked)
+    
+    }
+
     const handleChangeTextField = (e:any) => {
         if(e.target.value==='') return
         setTextFieldText(e.target.value)
 
     }
 
-    const handleKeyDownTextField = (e:any) => {
-        if(e.key==='Enter'){
-            getComicsCollection({collectionId:textFieldText})
-            .then((res:any)=>{
-                console.log('res :>> ', res);
-                if(_isEmpty(res)){
-                    setTitleData({
-                        issues: [],
-                        title: ''
-                    })    
-                } else {
-                    setTitleData({
-                        issues: res,
-                        title: res[0].series.title
-                    })
-
-                }
-            })
-            .catch(console.log)
+    const handleCheckboxChange = (e:any,idx:number) => {
+        let currentItem = {
+            ...titleData.issues[idx],
+            isChecked: e.target.checked
         }
 
-        
+        let copiedIssues = [...titleData.issues]
+        copiedIssues.splice(idx,1,currentItem)
+        let filterdIssues = filterIssuesChecked(copiedIssues)
+        setTitleData({
+            ...titleData,
+            issues: copiedIssues,
+        })
+        setSelectedIssues(filterdIssues)
+    }
+
+    const handleGetIssues = () => {
+        getComicsCollection({collectionId:textFieldText})
+        .then((res:any)=>{
+            if(_isEmpty(res)){
+                setTitleData({
+                    issues: [],
+                    title: ''
+                })    
+            } else {
+                setTitleData({
+                    issues: mapIssuesAddIsChecked(res),
+                    title: res[0].series.title
+                })
+
+            }
+        })
+        .catch(console.log)
+    }
+
+    const handleKeyDownTextField = (e:any) => {
+        if(e.key==='Enter') handleGetIssues()
     }
 
     interface TitleInfoBoxProps {
         data: Data
-    }
-
-    const handleCheckIssues = (checkedIssues: ComicBook[]) => {
-        console.log('handleCheckIssues checkedIssues :>> ', checkedIssues);
-        // setSelectedIssues(checkedIssues)
     }
 
     const TitleInfoBox:React.FC<TitleInfoBoxProps> = (props) => {
@@ -80,7 +102,7 @@ const AdminPanel = () => {
         return(
             <div>
                 <Typography>{text}</Typography>
-                <IssuesTable issues={props.data.issues} onCheckboxChange={handleCheckIssues}/>
+                <IssuesTable issues={props.data.issues} onCheckboxChange={handleCheckboxChange}/>
             </div>
 
         )
@@ -95,7 +117,9 @@ const AdminPanel = () => {
             <div>
                 <Button style={{fontSize:13}} 
                         disabled={_isEmpty(props.issues)} 
-                        variant="contained" color="primary">
+                        variant="contained" color="primary"
+                        onClick={()=>{console.log('selectedIssues :>> ', selectedIssues);}}
+                >
                             Add To Database ({props.issues.length} issues)
                 </Button>
             </div>
@@ -117,7 +141,7 @@ const AdminPanel = () => {
             />
             <TitleInfoBox data={titleData}/>
             
-            {/* <ButtonWrap issues={selectedIssues}/> */}
+            <ButtonWrap issues={selectedIssues}/>
 
 
         </div>
