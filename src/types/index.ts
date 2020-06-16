@@ -28,3 +28,7 @@ export interface ComicBook {
     }
 
 }
+
+export type Styles = {
+    [key:string]:object
+}
