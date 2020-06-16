@@ -15,7 +15,7 @@ const getComicsCollection = ( params?:getComicsCollectionParams ) => {
         if(params && params.collectionId){
             url = `${process.env.REACT_APP_Mycomicshop}${params.collectionId}`
         } else {
-            url = `${process.env.REACT_APP_Mycomicshop}47887081`
+            url = `${process.env.REACT_APP_Mycomicshop}21311185`
         }
 
         axios.get(url)
@@ -28,15 +28,11 @@ const getComicsCollection = ( params?:getComicsCollectionParams ) => {
             htmlObject.innerHTML = data;
 
             let results = htmlObject.getElementsByClassName('issue')
-            console.log('results', results)
-
             if(!results) return
             let list = Array.prototype.slice.call( results )
 
             
             let fetchedBooks = list.map((item:any )=>{
-                console.log('typeof item', typeof item)
-                console.log('item', item)
 
                 return {
                     publish: {
@@ -65,7 +61,6 @@ const getComicsCollection = ( params?:getComicsCollectionParams ) => {
                     }
                 }
             })
-            console.log('fetchedBooks', fetchedBooks)
             resolve(fetchedBooks)
             // return fetchedBooks
         // })
