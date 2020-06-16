@@ -9,8 +9,6 @@ import { ComicBook } from "../../types";
 
 
 const Catalog = () => {
-    let initialComics:ComicBook[] = []
-    
     const [comics, setComics] = useState<ComicBook[]>([]);
     const [options, setOptions] = useState([])
 
@@ -58,10 +56,8 @@ const Catalog = () => {
 
     const getAllComics = () => {
         getComics()
-        .then((res)=>{
-            console.log('res :>> ', res);
-            // let comics: ComicBook[] = res
-            // setComics(comics)
+        .then((res:any)=>{
+            setComics(res)
         })
         .catch(err=>{
             console.log('err', err)
@@ -73,9 +69,9 @@ const Catalog = () => {
             getAllComics(); 
             return;
         }
-        getComics({publisher:e.target.value})
-        .then(res=>{
-            // setComics(res)
+        getComics({publisher:e.value})
+        .then((res:any)=>{
+            setComics(res)
         })
         .catch(err=>{
             console.log('err', err)
@@ -84,8 +80,9 @@ const Catalog = () => {
 
     const loadOptions = () => {
         getPublishers()
-        .then(res=>{
-            setOptions([])
+        .then((res:any)=>{
+            console.log('getPublishers res :>> ', res);
+            setOptions(res)
         })
         .catch(err=>{
             console.log('err', err)
