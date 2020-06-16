@@ -1,70 +1,62 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import { Typography, Checkbox } from '@material-ui/core';
-import { ComicBook } from "../../../types";
+import { ComicBookWithIsChecked } from "../../../types";
 import { isEmpty as _isEmpty } from "lodash";
 
 interface IssuesTableProps {
-    issues: ComicBook[],
+    issues: ComicBookWithIsChecked[],
     onCheckboxChange: any
 }
 
-interface ComicBookWithIsChecked extends ComicBook {
-    isChecked: boolean
-}
-
-const addCheckedToIssue = (book:ComicBook) => {
-    return {
-        ...book,
-        isChecked: false
-    }
-}
-
-const mapIssuesAddIsChecked = (books: ComicBook[] ) => {
-    return books.map(addCheckedToIssue)
-}
-
-const mapIssuesRemoveIsChecked = (books:ComicBookWithIsChecked[]) => {
-    return books.filter(item=>item.isChecked)
-                .map(item=>{
-                    let {isChecked,...rest} = item
-                    return rest
-                })
-
-}
-
-
 const IssuesTable: React.FC<IssuesTableProps> = (props) => {
-    const [issues, setIssues] = useState( mapIssuesAddIsChecked(props.issues) );
-    const tableRef = useRef<HTMLDivElement|null>(null)
+    if(_isEmpty(props.issues)) return null
 
-    const handleCheckboxChange = (e:any,idx:number) => {
-        let currentItem = {
-            ...issues[idx],
-            isChecked: e.target.checked
-        }
-
-        let copiedIssues = [...issues]
-
-        copiedIssues.splice(idx,1,currentItem)
-        
-        setIssues(copiedIssues) 
+    const renderCheckBox = (item:ComicBookWithIsChecked,idx:number) => {
+        return (
+            <Checkbox   style={{
+                            width:24,
+                            height:24
+                        }}
+                        checked={item.isChecked}
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{props.onCheckboxChange(e,idx)}}
+                        inputProps={{ 'aria-label': 'secondary checkbox' }}
+            />
+        )
     }
 
-    useEffect(() => {
+    const renderIssueCover = (coverSrc: string) => {
 
-        let outputIssues = mapIssuesRemoveIsChecked(issues)
-        props.onCheckboxChange(outputIssues)
+        return(
+            <div style={{
+                    backgroundImage: `url(${coverSrc})`,
+                    width:80,
+                    height: "100%",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    margin:'0px 10px 0px 5px'
+                }}>
+            </div>
+        )
+    }
 
-        return () => {
-        };
-    }, [issues]);
+    const renderIssueTitle = (item:ComicBookWithIsChecked) => {
+
+        return(
+            <Typography style={{
+                            backgroundColor: item.isChecked ? '#f50057' : 'initial',
+                            color: item.isChecked ? 'white' : 'initial',
+                        }}
+            >
+                {item.series.title} {item.series.issue}
+            </Typography>
+        )
+    }
 
 
-    if(_isEmpty(props.issues)) return null 
     return (
-        <div ref={tableRef}>
+        <div>
             {
-                issues.map((item,idx)=>{
+                props.issues.map((item,idx)=>{
                     return (
                         <div key={idx} style={{
                             height: 120, 
@@ -72,29 +64,9 @@ const IssuesTable: React.FC<IssuesTableProps> = (props) => {
                             alignItems: "center",
                             marginBottom:10,
                         }}>
-                            <Checkbox
-                                style={{
-                                    width:24,
-                                    height:24
-                                }}
-                                checked={item.isChecked}
-                                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>{handleCheckboxChange(e,idx)}}
-                                inputProps={{ 'aria-label': 'secondary checkbox' }}
-
-                            />
-                            <div style={{
-                                backgroundImage: `url(${item.media.coverSrc})`,
-                                width:80,
-                                height: "100%",
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                margin:'0px 10px 0px 5px'
-                                }}></div>
-                            {/* <img width={100} src={item.media.coverSrc}/> */}
-                            <Typography style={{
-                                backgroundColor: item.isChecked ? '#f50057' : 'initial',
-                                color: item.isChecked ? 'white' : 'initial',
-                            }}>{item.series.title} {item.series.issue}</Typography>
+                            { renderCheckBox(item,idx) }
+                            { renderIssueCover(item.media.coverSrc) }
+                            { renderIssueTitle(item) }
                         </div>
                     )
                 })
