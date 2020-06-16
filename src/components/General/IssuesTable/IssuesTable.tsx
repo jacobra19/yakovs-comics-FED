@@ -1,17 +1,17 @@
 import React from 'react'
 import { Typography, Checkbox } from '@material-ui/core';
-import { ComicBookWithIsChecked } from "../../../types";
+import { ComicBook } from "../../../types";
 import { isEmpty as _isEmpty } from "lodash";
 
 interface IssuesTableProps {
-    issues: ComicBookWithIsChecked[],
+    issues: ComicBook[],
     onCheckboxChange: any
 }
 
 const IssuesTable: React.FC<IssuesTableProps> = (props) => {
     if(_isEmpty(props.issues)) return null
 
-    const renderCheckBox = (item:ComicBookWithIsChecked,idx:number) => {
+    const renderCheckBox = (item:ComicBook,idx:number) => {
         return (
             <Checkbox   style={{
                             width:24,
@@ -39,7 +39,7 @@ const IssuesTable: React.FC<IssuesTableProps> = (props) => {
         )
     }
 
-    const renderIssueTitle = (item:ComicBookWithIsChecked) => {
+    const renderIssueTitle = (item:ComicBook) => {
 
         return(
             <Typography style={{
