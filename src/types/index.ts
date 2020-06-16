@@ -1,5 +1,6 @@
-export type ComicBook = {
+export interface ComicBook {
     _id?: string,
+    isChecked?: boolean
     publish: {
         title: string,
         date: string
