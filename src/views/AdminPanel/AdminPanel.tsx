@@ -16,6 +16,7 @@ type Data = {
 const AdminPanel = () => {
     const [textFieldText, setTextFieldText] = useState<string>('');
     const [titleData, setTitleData] = useState<Data>({issues:[],title:''});
+    const [selectedIssues, setSelectedIssues] = useState<ComicBook[]>([])
 
     type Styles = {
         [key:string]:object
@@ -24,9 +25,10 @@ const AdminPanel = () => {
     const styles = (s:string) => {
         let styles:Styles = {
             root: {
-                height: "100%",
+                height: "calc( 100% - 30px )",
                 width: "100%",
                 overflow: "auto",
+                padding: 15,
             },
         }
 
@@ -69,6 +71,7 @@ const AdminPanel = () => {
 
     const handleCheckIssues = (checkedIssues: ComicBook[]) => {
         console.log('handleCheckIssues checkedIssues :>> ', checkedIssues);
+        // setSelectedIssues(checkedIssues)
     }
 
     const TitleInfoBox:React.FC<TitleInfoBoxProps> = (props) => {
@@ -77,20 +80,46 @@ const AdminPanel = () => {
         return(
             <div>
                 <Typography>{text}</Typography>
-                { isEmptyData ? null : <IssuesTable issues={props.data.issues} onCheckboxChange={handleCheckIssues}/> }
-                <Button disabled={isEmptyData} variant="contained" color="primary">Add To Database</Button>
+                <IssuesTable issues={props.data.issues} onCheckboxChange={handleCheckIssues}/>
             </div>
 
         )
     }
 
+    interface ButtonWrapProps {
+        issues: ComicBook[]
+    }
 
+    const ButtonWrap:React.FC<ButtonWrapProps> = (props) => {
+        return(
+            <div>
+                <Button style={{fontSize:13}} 
+                        disabled={_isEmpty(props.issues)} 
+                        variant="contained" color="primary">
+                            Add To Database ({props.issues.length} issues)
+                </Button>
+            </div>
 
+        )
+    }
 
     return (
         <div style={styles('root')}>
-            <TextField onChange={handleChangeTextField} onKeyDown={handleKeyDownTextField} placeholder={'Insert Title ID'}></TextField>
+            <TextField  onChange={handleChangeTextField} 
+                        onKeyDown={handleKeyDownTextField} 
+                        placeholder={'Insert Title ID'}
+                        inputProps={{
+                            style:{
+                                fontSize:13
+                            }
+                        }}
+                        style={{marginBottom:15}}
+            />
             <TitleInfoBox data={titleData}/>
+            
+            {/* <ButtonWrap issues={selectedIssues}/> */}
+
+
         </div>
     )
 }
