@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import getComicsCollection from "../../actions/getComicsCollection";
+import addFromScrapeComics from '../../actions/addFromScrapeComics'
 
 import { Typography, TextField, Button } from '@material-ui/core';
 import { isEmpty as _isEmpty } from 'lodash';
@@ -92,43 +93,17 @@ const AdminPanel = () => {
         if(e.key==='Enter') handleGetIssues()
     }
 
-    interface TitleInfoBoxProps {
-        data: Data
+    const handleAddToDB = () => {
+        addFromScrapeComics(selectedIssues)
+        .then((res)=>{
+            console.log('handleAddToDB res :>> ', res);
+        })
+        .catch(console.log)
     }
 
-    const TitleInfoBox:React.FC<TitleInfoBoxProps> = (props) => {
-        let isEmptyData:boolean = _isEmpty(props.data.issues) && _isEmpty(props.data.title)
-        let text:string = isEmptyData ? `` : `${props.data.title} has ${props.data.issues.length} issues`
-        return(
-            <div>
-                <Typography>{text}</Typography>
-                <IssuesTable issues={props.data.issues} onCheckboxChange={handleCheckboxChange}/>
-            </div>
+    const renderQueryInput = () => {
 
-        )
-    }
-
-    interface ButtonWrapProps {
-        issues: ComicBook[]
-    }
-
-    const ButtonWrap:React.FC<ButtonWrapProps> = (props) => {
-        return(
-            <div>
-                <Button style={{fontSize:13}} 
-                        disabled={_isEmpty(props.issues)} 
-                        variant="contained" color="primary"
-                        onClick={()=>{console.log('selectedIssues :>> ', selectedIssues);}}
-                >
-                            Add To Database ({props.issues.length} issues)
-                </Button>
-            </div>
-
-        )
-    }
-
-    return (
-        <div style={styles('root')}>
+        return (
             <TextField  onChange={handleChangeTextField} 
                         onKeyDown={handleKeyDownTextField} 
                         placeholder={'Insert Title ID'}
@@ -139,11 +114,43 @@ const AdminPanel = () => {
                         }}
                         style={{marginBottom:15}}
             />
-            <TitleInfoBox data={titleData}/>
-            
-            <ButtonWrap issues={selectedIssues}/>
+        )
 
+    }
 
+    const renderTitleInfo = () => {
+        let isEmptyData:boolean = _isEmpty(titleData.issues) && _isEmpty(titleData.title)
+        let text:string = isEmptyData ? `` : `${titleData.title} has ${titleData.issues.length} issues`
+        return(
+            <div>
+                <Typography>{text}</Typography>
+                <IssuesTable issues={titleData.issues} onCheckboxChange={handleCheckboxChange}/>
+            </div>
+
+        )
+    }
+
+    const renderAddToDbButton = () => {
+        let btnText = `Add To Database (${selectedIssues.length} issues)`
+        return (
+            <div>
+                <Button style={{fontSize:13}} 
+                        disabled={_isEmpty(selectedIssues)} 
+                        variant="contained" color="primary"
+                        onClick={handleAddToDB}
+                        >
+                            {btnText}
+                </Button>
+                {}
+            </div>
+        )
+    }
+
+    return (
+        <div style={styles('root')}>
+            { renderQueryInput() }
+            { renderTitleInfo() }
+            { renderAddToDbButton() }
         </div>
     )
 }
