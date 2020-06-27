@@ -14,7 +14,7 @@ type Data = {
     title: string
 }
 
-const AdminPanel = () => {
+const Explore = () => {
     const [textFieldText, setTextFieldText] = useState<string>('');
     const [titleData, setTitleData] = useState<Data>({issues:[],title:''});
     const [selectedIssues, setSelectedIssues] = useState<ComicBook[]>([])
@@ -155,4 +155,4 @@ const AdminPanel = () => {
     )
 }
 
-export default AdminPanel
+export default Explore
