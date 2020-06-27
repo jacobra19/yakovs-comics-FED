@@ -2,7 +2,7 @@ import React from 'react';
 import Tippy from '@tippy.js/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from "react-router-dom";
-import { ChartBarStacked, Bookshelf, SettingsOutline } from 'mdi-material-ui'
+import { ChartBarStacked, Bookshelf, SettingsOutline,Database,DatabaseImport } from 'mdi-material-ui'
 import { Typography } from '@material-ui/core';
 
 
@@ -56,11 +56,18 @@ const NavBar = () => {
                     </Tippy>
                 </Link>    
             </div>
-            <Link to="/fury">
-                <Tippy content={Tooltip('Admin Panel')} placement={'right'}>
-                    <SettingsOutline style={styles('navIcon')}/>
-                </Tippy>
-            </Link>    
+            <div>
+                <Link to="/table">
+                    <Tippy content={Tooltip('DB Table')} placement={'right'}>
+                        <Database style={styles('navIcon')}/>
+                    </Tippy>
+                </Link>    
+                <Link to="/explore">
+                    <Tippy content={Tooltip('Explore Comics')} placement={'right'}>
+                        <DatabaseImport style={styles('navIcon')}/>
+                    </Tippy>
+                </Link>
+            </div>
         </div>
     )
 }
