@@ -9,11 +9,15 @@ import Table from '../../../views/Table/Table'
 import NavBar from '../NavBar/NavBar'
 import NoResults from '../../General/NoResults/NoResults'
 
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MainSection = () => {
     type Styles = {
         [key:string]:object
     }
+
+    const { user, isAuthenticated } = useAuth0();
+
     
     const styles = (s:string) => {
         let styles:Styles = {
@@ -27,14 +31,23 @@ const MainSection = () => {
         return(styles[s]);
     }
 
+    const renderAdminRoutes = () => {
+
+        return(
+            <>
+                <Route exact path="/explore" component={Explore} />
+                <Route exact path="/table" component={Table} />
+            </>
+        )
+    }
+
     return (
         <div id={'MainSect`ion_root'} style={ styles('root') }>
             <NavBar/>
             <Switch>
                 <Route exact path="/" component={Catalog} />
                 <Route exact path="/analytics" component={Analytics} />
-                <Route exact path="/explore" component={Explore} />
-                <Route exact path="/table" component={Table} />
+                { isAuthenticated && renderAdminRoutes() }
                 <Route component={NoResults}/>
             </Switch>
         </div>
