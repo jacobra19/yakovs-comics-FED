@@ -7,6 +7,19 @@ import TopBar from './components/Layout/TopBar/TopBar'
 import MainSection from './components/Layout/MainSection/MainSection'
 
 
+import _ from "lodash";
+import moment from 'moment';
+
+declare global {
+    interface Window { 
+        _: any, 
+        moment: any, 
+    }
+}
+
+window._ = _ || {};
+window.moment = moment || {};
+
 
 function App() {
     interface Styles {
