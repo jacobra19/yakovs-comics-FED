@@ -4,10 +4,11 @@ import 'tippy.js/dist/tippy.css';
 import { Link } from "react-router-dom";
 import { ChartBarStacked, Bookshelf, SettingsOutline,Database,DatabaseImport } from 'mdi-material-ui'
 import { Typography } from '@material-ui/core';
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NavBar = () => {
-    
+    const { user, isAuthenticated } = useAuth0();
+
     type Styles = {
         [key:string]:object
     }
@@ -41,8 +42,27 @@ const NavBar = () => {
         return <Typography style={{fontSize:13}}>{title}</Typography>
     }
 
-    return (
-        <div id={'NavBar_root'} style={ styles('root') }>
+    const renderAdminRoutes = () => {
+
+        return (
+            <div>
+                <Link to="/table">
+                    <Tippy content={Tooltip('DB Table')} placement={'right'}>
+                        <Database style={styles('navIcon')}/>
+                    </Tippy>
+                </Link>    
+                <Link to="/explore">
+                    <Tippy content={Tooltip('Explore Comics')} placement={'right'}>
+                        <DatabaseImport style={styles('navIcon')}/>
+                    </Tippy>
+                </Link>
+            </div>
+        )
+    }
+
+    const renderGeneralRoutes = () => {
+        
+        return(
             <div>
                 <Link to="/">
                     <Tippy content={Tooltip('Catalog')} placement={'right'}>
@@ -56,18 +76,13 @@ const NavBar = () => {
                     </Tippy>
                 </Link>    
             </div>
-            <div>
-                <Link to="/table">
-                    <Tippy content={Tooltip('DB Table')} placement={'right'}>
-                        <Database style={styles('navIcon')}/>
-                    </Tippy>
-                </Link>    
-                <Link to="/explore">
-                    <Tippy content={Tooltip('Explore Comics')} placement={'right'}>
-                        <DatabaseImport style={styles('navIcon')}/>
-                    </Tippy>
-                </Link>
-            </div>
+        )
+    }
+
+    return (
+        <div id={'NavBar_root'} style={ styles('root') }>
+            { renderGeneralRoutes() }
+            { isAuthenticated && renderAdminRoutes() }
         </div>
     )
 }
