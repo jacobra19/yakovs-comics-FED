@@ -59,7 +59,7 @@ const LoginIndicator = () => {
         )
     }
 
-    return isAuthenticated ? <LogoutButton/> : renderLoginButton();
+    return isAuthenticated ? <LogoutButton/> : null // renderLoginButton();
 };
 
 export default LoginIndicator;
