@@ -1,5 +1,5 @@
 import React from 'react';
-import AddComicPopup from '../../General/AddComicPopup/AddComicPopup'
+import LoginIndicator from '../../General/LoginIndicator/LoginIndicator'
 import { AppBar, Typography } from '@material-ui/core';
 import { ThoughtBubble  } from 'mdi-material-ui'
 
@@ -22,6 +22,7 @@ const TopBar = () => {
                 justifyContent:'space-between',
                 flexDirection:'row',
                 zIndex:1,
+                paddingRight: 15,
             },
             titleText:{
                 fontFamily: "Bangers, cursive",
@@ -53,6 +54,7 @@ const TopBar = () => {
 
                 <Typography style={ styles('titleText') }>{title}</Typography>
             </div>
+            <LoginIndicator/>
         </AppBar>
     )
 }
