@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { ChartBarStacked, Bookshelf, SettingsOutline,Database,DatabaseImport } from 'mdi-material-ui'
 import { Typography } from '@material-ui/core';
 import { useAuth0 } from "@auth0/auth0-react";
+require('dotenv').config()
 
 const NavBar = () => {
     const { user, isAuthenticated } = useAuth0();
@@ -79,10 +80,12 @@ const NavBar = () => {
         )
     }
 
+    console.log('process.env.REACT_APP_DEV :>> ', process.env.REACT_APP_DEV);
+
     return (
         <div id={'NavBar_root'} style={ styles('root') }>
             { renderGeneralRoutes() }
-            { isAuthenticated && renderAdminRoutes() }
+            { (isAuthenticated || process.env.REACT_APP_DEV) ? renderAdminRoutes() : null }
         </div>
     )
 }

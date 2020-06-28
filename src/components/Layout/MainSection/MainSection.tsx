@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route,Switch } from "react-router-dom";
+require('dotenv').config()
 
 import Catalog from '../../../views/Catalog/Catalog'
 import Analytics from '../../../views/Analytics/Analytics'
@@ -47,7 +48,7 @@ const MainSection = () => {
             <Switch>
                 <Route exact path="/" component={Catalog} />
                 <Route exact path="/analytics" component={Analytics} />
-                { isAuthenticated && renderAdminRoutes() }
+                { (isAuthenticated || process.env.REACT_APP_DEV) ? renderAdminRoutes() : null }
                 <Route component={NoResults}/>
             </Switch>
         </div>
