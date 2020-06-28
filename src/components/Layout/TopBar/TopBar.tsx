@@ -53,7 +53,6 @@ const TopBar = () => {
 
                 <Typography style={ styles('titleText') }>{title}</Typography>
             </div>
-            <AddComicPopup/>
         </AppBar>
     )
 }
