@@ -18,7 +18,7 @@
     "@types/recoil": "0.0.0",
     "ag-grid-community": "^23.2.1",
     "ag-grid-react": "^23.2.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "jss-plugin-vendor-prefixer": "^10.0.3",
     "lodash": "^4.17.15",
